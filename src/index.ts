@@ -21,7 +21,7 @@ mongoose
   });
 
 const app = express();
-const server = http.Server(app);
+const server = http.createServer(app);
 
 require('./passport')(passport);
 
