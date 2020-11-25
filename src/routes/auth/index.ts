@@ -15,7 +15,7 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/auth/failed' }),
   (req, res) => {
-    res.redirect(308, 'http://me.mydomain.com:3000');
+    res.redirect(308, `${process.env.FRONTEND_URL}`);
   }
 );
 
