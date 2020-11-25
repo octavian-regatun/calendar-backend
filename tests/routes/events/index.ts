@@ -13,6 +13,7 @@ const URL = 'http://localhost:8080';
 
 describe('test /events/', () => {
   before(() => {
+    require('../../../src/index');
     axios.defaults.withCredentials = true;
     axios.defaults.headers = { Cookie: `connect.sid=${cookieSession};` };
 
