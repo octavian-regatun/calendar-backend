@@ -36,9 +36,4 @@ router.get('/loggedIn', (req, res) => {
   }
 });
 
-router.get('/cookie', (req, res) => {
-  res.cookie('test', 'testvalue');
-  res.send();
-});
-
 module.exports = router;
