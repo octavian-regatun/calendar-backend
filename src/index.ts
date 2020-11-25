@@ -54,5 +54,5 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
-  console.log(`Server running on PORT: ${PORT}`);
+  console.log(`Calendar backend server is running on PORT: ${PORT}`);
 });
