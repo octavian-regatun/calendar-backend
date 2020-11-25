@@ -6,7 +6,7 @@ export enum Gender {
   unknown = 'U'
 }
 
-export interface Address extends Document {
+export interface Address{
   country: string;
   city: string;
   street: string;
