@@ -20,6 +20,7 @@ mongoose
   });
 
 const app = express();
+const server = http.Server(app);
 
 require('./passport')(passport);
 
@@ -54,6 +55,6 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Calendar backend server is running on PORT: ${PORT}`);
 });
