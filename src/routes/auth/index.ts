@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+import APIResponse from '../../responses';
 
 const router = express.Router();
 
@@ -20,19 +21,19 @@ router.get(
 );
 
 router.get('/failed', (req, res) => {
-  res.sendStatus(500);
+  APIResponse.internalServerError(res);
 });
 
 router.get('/logout', (req, res) => {
   req.logOut();
-  res.status(200).send('logged out');
+  APIResponse.success(res, 'user logged out');
 });
 
 router.get('/loggedIn', (req, res) => {
   if (req.isAuthenticated()) {
-    res.send({ body: { loggedIn: true } });
+    APIResponse.success(res, { loggedIn: true });
   } else {
-    res.send({ body: { loggedIn: false } });
+    APIResponse.success(res, { loggedIn: false });
   }
 });
 
