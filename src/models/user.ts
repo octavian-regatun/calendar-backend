@@ -14,7 +14,6 @@ export interface Address{
 }
 
 export interface IUser extends Document {
-  id: string;
   provider: string;
   providerId: string;
   email: string;
