@@ -2,8 +2,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 import assert from 'assert';
 import axios from 'axios';
-import mongoose from 'mongoose';
-import { dbOptions, mongooseURL } from '../../../src/config';
 import { handleException } from '../../../src/exceptions';
 import Event, { IEvent } from '../../../src/models/event';
 
@@ -14,15 +12,9 @@ const URL = 'http://localhost:8080';
 describe('test /events/', () => {
   before(() => {
     require('../../../src/index');
+    
     axios.defaults.withCredentials = true;
     axios.defaults.headers = { Cookie: `connect.sid=${cookieSession};` };
-
-    mongoose
-      .connect(mongooseURL, dbOptions)
-      .then(() => console.log('Connected to DB'))
-      .catch((err) => {
-        console.log(err);
-      });
   });
 
   it('GET /events/:eventId', async () => {
