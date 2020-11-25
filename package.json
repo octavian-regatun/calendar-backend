@@ -7,7 +7,7 @@
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/index.js",
     "start:dev": "nodemon",
-    "test": "ts-mocha --exit tests/**/*.ts"
+    "test": "ts-mocha --exit --timeout 20000 tests/**/*.ts"
   },
   "keywords": [],
   "author": "",
