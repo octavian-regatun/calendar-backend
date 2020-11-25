@@ -8,5 +8,4 @@ cache: npm
 install:
   - npm i
 script:
-  - npm run start:dev
   - npm run test
