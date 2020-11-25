@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import { dbOptions, mongooseURL } from './config';
-import { ensureGuest, ensureAuth } from './middlewares/auth';
+import { ensureAuth } from './middlewares/auth';
 
 const MongoStore = connectMongo(session);
 
@@ -46,6 +46,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/auth', require('./routes/auth/index'));
+app.use('/events', ensureAuth, require('./routes/events/index'));
 
 app.get('/', (req, res) => {
   res.send(`Calendar backend server is running`);
