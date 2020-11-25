@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
-import http from 'http';
 import cors from 'cors';
 import passport from 'passport';
 import mongoose from 'mongoose';
@@ -21,7 +20,6 @@ mongoose
   });
 
 const app = express();
-const server = http.createServer(app);
 
 require('./passport')(passport);
 
@@ -56,6 +54,6 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 8080;
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Calendar backend server is running on PORT: ${PORT}`);
 });
