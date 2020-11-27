@@ -51,13 +51,13 @@ app.use('/api', require('./routes/routes'));
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(
-    express.static(path.join(__dirname, '../../calendar-frontend/build'))
+    express.static(path.join(__dirname, process.env.FRONTEND_BUILD_PATH || ''))
   );
 
   // Handle React routing, return all requests to React app
   app.get('*', function (req, res) {
     res.sendFile(
-      path.join(__dirname, '../../calendar-frontend/build', 'index.html')
+      path.join(__dirname, process.env.FRONTEND_BUILD_PATH || '', 'index.html')
     );
   });
 }
