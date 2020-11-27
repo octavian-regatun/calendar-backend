@@ -3,7 +3,7 @@ import { handleException } from '../../exceptions';
 import { ensureRightUser } from '../../middlewares/auth';
 import Event from '../../models/event';
 import { IEvent } from '../../models/event';
-import APIResponse from './../../responses';
+import APIResponse from '../../responses';
 
 const router = express.Router();
 

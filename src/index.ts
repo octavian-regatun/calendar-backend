@@ -9,6 +9,7 @@ import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import { dbOptions, mongooseURL } from './config';
 import { ensureAuth } from './middlewares/auth';
+import path from 'path';
 
 const MongoStore = connectMongo(session);
 
@@ -45,12 +46,21 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/auth', require('./routes/auth/index'));
-app.use('/events', ensureAuth, require('./routes/events/index'));
+app.use('/api', require('./routes/routes'));
 
-app.get('/', (req, res) => {
-  res.send(`Calendar backend server is running`);
-});
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(
+    express.static(path.join(__dirname, '../../calendar-frontend/build'))
+  );
+
+  // Handle React routing, return all requests to React app
+  app.get('*', function (req, res) {
+    res.sendFile(
+      path.join(__dirname, '../../calendar-frontend/build', 'index.html')
+    );
+  });
+}
 
 const PORT = process.env.PORT || 8080;
 
