@@ -91,7 +91,7 @@ router.patch('/:eventId', setRightUser, ensureRightUser, async (req, res) => {
   foundEvent.save().catch((err: unknown) => handleException(err));
 
   APIResponse.success(res, {
-    message: 'event saved successfuly',
+    message: 'event saved successfully'
   });
 });
 
