@@ -6,7 +6,7 @@ export default class APIResponse {
    * @param res
    * @param body
    */
-  public static success(res: Response, body: unknown) {
+  public static success(res: Response, body: unknown): Response {
     return res.status(200).send(body);
   }
 
@@ -19,7 +19,11 @@ export default class APIResponse {
    * 404 Not Found
    * @param message
    */
-  public static error(res: Response, status: number, message: string) {
+  public static error(
+    res: Response,
+    status: number,
+    message: string
+  ): Response {
     return res
       .status(status)
       .send({ error: { status: status, message: message } });
@@ -29,15 +33,15 @@ export default class APIResponse {
    * 401 - Unauthorized
    * @param res
    */
-  public static unauthorized(res: Response) {
-    res.sendStatus(401);
+  public static unauthorized(res: Response): Response {
+    return res.sendStatus(401);
   }
 
   /**
    * 500 - Internal Server Error
    * @param res
    */
-  public static internalServerError(res: Response) {
-    res.sendStatus(500);
+  public static internalServerError(res: Response): Response {
+    return res.sendStatus(500);
   }
 }

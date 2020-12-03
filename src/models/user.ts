@@ -6,7 +6,7 @@ export enum Gender {
   unknown = 'U'
 }
 
-export interface Address{
+export interface Address {
   country: string;
   city: string;
   street: string;
@@ -24,6 +24,13 @@ export interface IUser extends Document {
   address: Address;
 }
 
+const AddressSchema: Schema = new Schema({
+  country: { type: String },
+  city: { type: String },
+  street: { type: String },
+  streetNumber: { type: String }
+});
+
 const UserSchema: Schema = new Schema({
   provider: { type: String, required: true },
   providerId: { type: String, required: true },
@@ -36,12 +43,7 @@ const UserSchema: Schema = new Schema({
     default: Gender.unknown
   },
   birthday: Date,
-  address: {
-    country: { type: String },
-    city: { type: String },
-    street: { type: String },
-    streetNumber: { type: String }
-  }
+  address: { type: AddressSchema }
 });
 
 export default mongoose.model<IUser>('User', UserSchema, 'users');

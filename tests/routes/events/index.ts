@@ -12,7 +12,7 @@ const URL = 'http://localhost:8080';
 describe('test /events/', () => {
   before(() => {
     require('../../../src/index');
-    
+
     axios.defaults.withCredentials = true;
     axios.defaults.headers = { Cookie: `connect.sid=${cookieSession};` };
   });
@@ -29,10 +29,11 @@ describe('test /events/', () => {
       throw new Error('event');
     }
 
-    const foundEvent = await Event.findById('5fb9473078222d4740d9fbc1')
-      .lean()
-      .then((event) => event)
-      .catch((err) => handleException(err));
+    const foundEvent = await Event.findById('5fb9473078222d4740d9fbc1', null, {
+      lean: true
+    })
+      .then((event: IEvent) => event)
+      .catch((err: Error) => handleException(err));
 
     if (!foundEvent) {
       throw new Error('event searched in db was not found in db');

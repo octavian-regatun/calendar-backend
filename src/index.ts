@@ -8,7 +8,6 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import { dbOptions, mongooseURL } from './config';
-import { ensureAuth } from './middlewares/auth';
 import path from 'path';
 
 const MongoStore = connectMongo(session);

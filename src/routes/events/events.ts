@@ -11,8 +11,8 @@ async function setRightUser(req: Request, res: Response, next: NextFunction) {
   const { eventId } = req.params;
 
   const foundEvent = await Event.findById(eventId)
-    .then((card) => {
-      return card;
+    .then((event) => {
+      return event;
     })
     .catch((err) => handleException(err));
 

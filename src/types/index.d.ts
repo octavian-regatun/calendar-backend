@@ -1,5 +1,4 @@
-declare namespace Express {
-  export interface User {
-    _id: string;
-  }
+import { IUser } from '../models/user';
+export interface DoneFunction {
+  (err: unknown, user: IUser | null): void;
 }

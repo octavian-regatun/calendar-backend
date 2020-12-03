@@ -2,6 +2,7 @@ import { PassportStatic } from 'passport';
 import User from './models/user';
 import { IUser } from './models/user';
 import { IProfile } from './interfaces/profile';
+import { DoneFunction } from './types';
 
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
@@ -19,7 +20,7 @@ module.exports = (passport: PassportStatic) => {
         accessToken: string,
         refreshToken: string,
         profile: IProfile,
-        done: any
+        done: DoneFunction
       ) => {
         // add user to db
         let error = null;
@@ -48,6 +49,7 @@ module.exports = (passport: PassportStatic) => {
             .catch((err) => {
               console.log(err);
               error = err;
+              return null;
             });
           return done(error, savedUser);
         }
