@@ -8,7 +8,9 @@
     "start": "npm run build && node dist/src/index.js",
     "start:dev": "nodemon",
     "test": " cross-env TEST=true ts-mocha --exit --timeout 30000 tests/**/*.ts",
-    "lint": "eslint src"
+    "check-types": "tsc --noEmit || true",
+    "eslint": "eslint src || true",
+    "lint": "npm run eslint && npm run check-types"
   },
   "keywords": [],
   "author": "",
