@@ -7,7 +7,8 @@
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/src/index.js",
     "start:dev": "nodemon",
-    "test": " cross-env TEST=true ts-mocha --exit --timeout 30000 tests/**/*.ts"
+    "test": " cross-env TEST=true ts-mocha --exit --timeout 30000 tests/**/*.ts",
+    "lint": "eslint src"
   },
   "keywords": [],
   "author": "",
