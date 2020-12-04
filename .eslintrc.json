@@ -12,7 +12,18 @@
   ],
   "rules": {
     "semi": "error",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "no-extra-parens": "error",
+    "no-unreachable-loop": "error",
+    "no-loss-of-precision": "error",
+    "no-template-curly-in-string": "error",
+    "block-scoped-var": "error",
+    "curly": "error",
+    "default-param-last": "error",
+    "default-case-last": "error",
+    "default-case": "error",
+    "no-else-return":"error",
+    "no-trailing-spaces":"error",
+    "eol-last":"error",
+    "no-tabs":"error"
   }
 }
