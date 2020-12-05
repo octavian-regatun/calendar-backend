@@ -1,58 +1,57 @@
+import { Request } from 'express';
 import { PassportStatic } from 'passport';
 import User from './models/user';
 import { IUser } from './models/user';
 import { IProfile } from './interfaces/profile';
-import { DoneFunction } from './types';
+import GooglePassport, { VerifyCallback } from 'passport-google-oauth2';
+import { handleException } from './exceptions';
 
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const GoogleStrategy = GooglePassport.Strategy;
 
-module.exports = (passport: PassportStatic) => {
+export default function passportInitialize(passport: PassportStatic): void {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        clientID: process.env.GOOGLE_CLIENT_ID as string,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         callbackURL: '/api/auth/google/callback',
         passReqToCallback: true
       },
-      async (
+      (
         request: Request,
         accessToken: string,
         refreshToken: string,
         profile: IProfile,
-        done: DoneFunction
+        done: VerifyCallback
       ) => {
         // add user to db
-        let error = null;
+        User.findOne({ providerId: profile.id })
+          .then((foundUser) => {
+            if (foundUser) {
+              return done(null, foundUser);
+            }
+            const newUser = new User();
 
-        const foundUser = await User.findOne({ providerId: profile.id })
-          .then((user) => user)
+            newUser.provider = profile.provider;
+            newUser.providerId = profile.id;
+            newUser.email = profile.email;
+            newUser.firstName = profile.name.givenName;
+            newUser.lastName = profile.name.familyName;
+
+            newUser
+              .save()
+              .then((savedUser) => {
+                return done(null, savedUser);
+              })
+              .catch((err) => {
+                console.log(err);
+                return done(err, null);
+              });
+          })
           .catch((err) => {
             console.log(err);
-            error = err;
+            return done(err, null);
           });
-
-        if (foundUser) {
-          return done(error, foundUser);
-        } else {
-          const newUser = new User();
-
-          newUser.provider = profile.provider;
-          newUser.providerId = profile.id;
-          newUser.email = profile.email;
-          newUser.firstName = profile.name.givenName;
-          newUser.lastName = profile.name.familyName;
-
-          const savedUser = await newUser
-            .save()
-            .then((user) => user)
-            .catch((err) => {
-              console.log(err);
-              error = err;
-              return null;
-            });
-          return done(error, savedUser);
-        }
       }
     )
   );
@@ -61,9 +60,14 @@ module.exports = (passport: PassportStatic) => {
     done(null, user.id);
   });
 
-  passport.deserializeUser(async (id, done) => {
-    await User.findById(id, function (err, user) {
-      done(err, user);
-    });
+  passport.deserializeUser((id, done) => {
+    User.findById(id)
+      .then((user) => {
+        done(null, user);
+      })
+      .catch((err) => {
+        handleException(err);
+        done(err, null);
+      });
   });
-};
+}

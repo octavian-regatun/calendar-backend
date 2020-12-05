@@ -16,7 +16,7 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/auth/failed' }),
   (req, res) => {
-    res.redirect(308, `${process.env.FRONTEND_URL}`);
+    res.redirect(308, `${process.env.FRONTEND_URL as string}`);
   }
 );
 
@@ -37,4 +37,4 @@ router.get('/loggedIn', (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

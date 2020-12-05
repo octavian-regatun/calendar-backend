@@ -8,7 +8,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "rules": {
     "semi": "error",
@@ -21,9 +22,9 @@
     "default-param-last": "error",
     "default-case-last": "error",
     "default-case": "error",
-    "no-else-return":"error",
-    "no-trailing-spaces":"error",
-    "eol-last":"error",
-    "no-tabs":"error"
+    "no-else-return": "error",
+    "no-trailing-spaces": "error",
+    "eol-last": "error",
+    "no-tabs": "error"
   }
 }

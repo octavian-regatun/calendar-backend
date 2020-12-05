@@ -9,6 +9,8 @@ import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import { dbOptions, mongooseURL } from './config';
 import path from 'path';
+import passportInitialize from './passport';
+import routerRoutes from './routes/routes';
 
 const MongoStore = connectMongo(session);
 
@@ -21,7 +23,7 @@ mongoose
 
 const app = express();
 
-require('./passport')(passport);
+passportInitialize(passport);
 
 app.use(
   cors({
@@ -45,7 +47,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api', require('./routes/routes'));
+app.use('/api', routerRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files

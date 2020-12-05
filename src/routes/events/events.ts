@@ -7,28 +7,31 @@ import APIResponse from '../../responses';
 
 const router = express.Router();
 
-async function setRightUser(req: Request, res: Response, next: NextFunction) {
+function setRightUser(req: Request, res: Response, next: NextFunction) {
   const { eventId } = req.params;
 
-  const foundEvent = await Event.findById(eventId)
-    .then((event) => {
-      return event;
+  Event.findById(eventId)
+    .then((foundEvent) => {
+      if (!foundEvent) {
+        return APIResponse.error(
+          res,
+          404,
+          `event with id: ${eventId} not found`
+        );
+      }
+
+      res.locals.foundEvent = foundEvent;
+
+      const user = req.user as Express.User;
+
+      if (user._id == foundEvent?.authorId) {
+        res.locals.isRightUser = true;
+      } else {
+        res.locals.isRightUser = false;
+      }
+      next();
     })
     .catch((err) => handleException(err));
-
-  if (!foundEvent)
-    return APIResponse.error(res, 404, `event with id: ${eventId} not found`);
-
-  res.locals.foundEvent = foundEvent;
-
-  const user = req.user as Express.User;
-
-  if (user._id == foundEvent?.authorId) {
-    res.locals.isRightUser = true;
-  } else {
-    res.locals.isRightUser = false;
-  }
-  next();
 }
 
 router.get('/:eventId', setRightUser, ensureRightUser, (req, res) => {
@@ -46,7 +49,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const event: IEvent = req.body;
+  const event: IEvent = req.body as IEvent;
 
   const newEvent = new Event();
 
@@ -69,10 +72,10 @@ router.post('/', (req, res) => {
   APIResponse.success(res, 'card saved successfully');
 });
 
-router.patch('/:eventId', setRightUser, ensureRightUser, async (req, res) => {
-  const event: IEvent = req.body;
+router.patch('/:eventId', setRightUser, ensureRightUser, (req, res) => {
+  const event: IEvent = req.body as IEvent;
   console.log(event);
-  const foundEvent = res.locals.foundEvent;
+  const foundEvent = res.locals.foundEvent as IEvent;
 
   foundEvent.title = event.title != undefined ? event.title : foundEvent.title;
   foundEvent.description =
@@ -95,4 +98,4 @@ router.patch('/:eventId', setRightUser, ensureRightUser, async (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
