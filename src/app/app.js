@@ -6,7 +6,7 @@ import express from 'express'
 import session from 'express-session'
 import passport from 'passport'
 import path from 'path'
-import { PORT } from '../config.js'
+import { PORT } from '../utils/config'
 import router from '../routes/router.js'
 
 const MongoStore = connectMongo(session)
