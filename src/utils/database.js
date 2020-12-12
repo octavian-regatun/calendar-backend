@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { mongooseOptions, mongooseURL } from './config.js'
-import { handleException } from './utils/exceptions.js'
+import { handleException } from './exceptions.js'
 
 mongoose
   .connect(mongooseURL, mongooseOptions)
