@@ -24,7 +24,7 @@ function setRightUser(req, res, next) {
     return ResponseController.error(
       res,
       404,
-      `event with id: ${eventId} not found`
+      `event with id not found`
     )
   }
 
