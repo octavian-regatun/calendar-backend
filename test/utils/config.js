@@ -1,0 +1,5 @@
+const URL = 'http://localhost:8080'
+const LOGGED_IN_COOKIE_SESSION =
+  's%3AlUq33ym8rTeoL1FCXWZA44qXLY_XcrCI.%2BCQu3nb4c8W2YK3sA7gwO%2Bdh%2BEe635ek7liybe0hL9g'
+const USER_ID = '5fbe00f8687aa056789320e6'
+export { URL, LOGGED_IN_COOKIE_SESSION, USER_ID }
