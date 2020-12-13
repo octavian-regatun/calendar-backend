@@ -1,5 +1,5 @@
 import express from 'express'
-import { Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import ResponseController from '../controller/ResponseController.js'
 import { ensureRightUser } from '../middlewares/auth.js'
 import Event from '../models/event.js'
@@ -21,11 +21,7 @@ function setRightUser(req, res, next) {
 
   if (!foundEvent) {
     // TODO: check if it stops the execution of further code
-    return ResponseController.error(
-      res,
-      404,
-      `event with id not found`
-    )
+    return ResponseController.error(res, 404, `event with id not found`)
   }
 
   res.locals.foundEvent = foundEvent
@@ -86,11 +82,11 @@ router.post('/', (req, res) => {
 
   newEvent.title = event.title
   newEvent.description = event.description
-  newEvent.author = req.user._id
+  newEvent.author = mongoose.Types.ObjectId(req.user._id)
   newEvent.createdAt = new Date()
   newEvent.startAt = new Date(event.startAt)
   newEvent.endAt = new Date(event.endAt)
-  newEvent.participants = Schema.Types.ObjectId(event.participants)
+  newEvent.participants = event.participants
   newEvent.photo = event.photo
   newEvent.location = event.location
 

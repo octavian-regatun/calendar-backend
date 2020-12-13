@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose'
 const EventSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String },
-  author: { type: String, required: true },
+  author: { type: Schema.Types.ObjectId, required: true },
   createdAt: { type: Date, required: true },
   startAt: { type: Date, required: true },
   endAt: { type: Date, required: true },
