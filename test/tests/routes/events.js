@@ -1,5 +1,6 @@
 import assert from 'assert'
 import axios from 'axios'
+import mongoose from 'mongoose'
 import '../../../src/index.js'
 import Event from '../../../src/models/event.js'
 import { stringifyProperties } from '../../../src/utils/utils.js'
@@ -20,7 +21,10 @@ describe('all tests for /api/events', () => {
 
     const foundEvents = await Event.find(
       {
-        $or: [{ participantsId: USER_ID }, { authorId: USER_ID }]
+        $or: [
+          { participants: mongoose.Types.ObjectId(USER_ID) },
+          { author: mongoose.Types.ObjectId(USER_ID) }
+        ]
       },
       null,
       { lean: true }
