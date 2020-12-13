@@ -1,5 +1,5 @@
 import express from 'express'
-import mongoose, { Schema } from 'mongoose'
+import mongoose from 'mongoose'
 import ResponseController from '../controller/ResponseController.js'
 import { ensureRightUser } from '../middlewares/auth.js'
 import Event from '../models/event.js'
