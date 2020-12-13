@@ -32,6 +32,8 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use('/api', router)
+
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(
@@ -45,8 +47,6 @@ if (process.env.NODE_ENV === 'production') {
     )
   })
 }
-
-app.use('/api', router)
 
 app.listen(PORT, () => {
   console.log(`calendar server is running on port: ${PORT}`)
