@@ -69,18 +69,18 @@ router.post('/', async (req, res) => {
 
   const newEvent = new Event()
 
-  if (!event.title) {
+  if (!title) {
     return ResponseController.error(res, 400, 'title is not valid')
   }
 
-  if (isDateValid(new Date(event.startAt))) {
+  if (!isDateValid(new Date(startAt))) {
     return ResponseController.error(
       res,
       400,
       'startAt is not in valid date format'
     )
   }
-  if (isDateValid(new Date(event.endAt))) {
+  if (!isDateValid(new Date(endAt))) {
     return ResponseController.error(
       res,
       400,
