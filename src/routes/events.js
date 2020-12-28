@@ -20,7 +20,6 @@ function setRightUser(req, res, next) {
   const foundEvent = Event.findById(eventId).lean()
 
   if (!foundEvent) {
-    // TODO: check if it stops the execution of further code
     return ResponseController.error(res, 404, `event with id not found`)
   }
 
