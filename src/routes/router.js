@@ -3,6 +3,7 @@ import ResponseController from '../controller/ResponseController.js'
 import { ensureAuth } from '../middlewares/auth.js'
 import routerAuth from './auth'
 import routerEvents from './events'
+import routerLocation from './location'
 
 const router = express.Router()
 
@@ -12,5 +13,6 @@ router.get('/', (req, res) => {
 
 router.use('/auth', routerAuth)
 router.use('/events', ensureAuth, routerEvents)
+router.use('/location', routerLocation)
 
 export default router
