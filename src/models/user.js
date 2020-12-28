@@ -15,7 +15,8 @@ const UserSchema = new Schema({
     default: 'U'
   },
   birthday: Date,
-  address: { type: AddressSchema }
+  address: { type: AddressSchema },
+  friends: { type: Schema.Types.ObjectId }
 })
 
 const User = mongoose.model('User', UserSchema, 'users')
