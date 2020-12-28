@@ -9,7 +9,6 @@ const GoogleStrategy = new GooglePassport.Strategy(
     passReqToCallback: true
   },
   (request, accessToken, refreshToken, profile, done) => {
-    // add user to database
     User.findOne({ providerId: profile.id })
       .then((foundUser) => {
         if (foundUser) {
