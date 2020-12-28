@@ -33,6 +33,7 @@
     "assert": "^2.0.0",
     "axios": "^0.21.0",
     "babel-eslint": "^10.1.0",
+    "base-64": "^1.0.0",
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
     "cors": "^2.8.5",
@@ -43,13 +44,19 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "firebase": "^8.2.1",
+    "imagemin": "^7.0.1",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-pngquant": "^9.0.1",
     "mocha": "^8.2.1",
     "mongoose": "^5.11.4",
     "nodemon": "^2.0.6",
     "passport": "^0.4.1",
     "passport-google-oauth2": "^0.2.0",
     "prettier": "^2.2.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "uuid": "^8.3.2",
+    "xhr2": "^0.2.0"
   },
   "devDependencies": {
     "eslint": "^7.15.0",
