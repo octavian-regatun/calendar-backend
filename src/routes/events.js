@@ -4,7 +4,7 @@ import ResponseController from '../controller/ResponseController.js'
 import { ensureRightUser } from '../middlewares/auth.js'
 import Event from '../models/event.js'
 import { handleException } from '../utils/exceptions.js'
-import { isDateValid, stringifyProperties } from '../utils/utils.js'
+import { isDateValid, stringifyProperties, uploadFile } from '../utils/utils.js'
 
 const router = express.Router()
 
@@ -88,8 +88,11 @@ router.post('/', async (req, res) => {
     )
   }
 
-  newEvent.title = event.title
-  newEvent.description = event.description
+  let imageURL
+  if (image) {
+    imageURL = await uploadFile('events', image)
+  }
+
   newEvent.title = title
   newEvent.description = description
   newEvent.author = mongoose.Types.ObjectId(req.user._id)
