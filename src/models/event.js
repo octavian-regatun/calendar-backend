@@ -9,7 +9,8 @@ const EventSchema = new Schema({
   endAt: { type: Date, required: true },
   participants: { type: [Schema.Types.ObjectId] },
   photo: { type: String },
-  location: { type: String }
+  location: { type: String },
+  color: { type: String }
 })
 
 const Event = mongoose.model('Event', EventSchema, 'events')

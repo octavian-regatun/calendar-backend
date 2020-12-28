@@ -55,8 +55,17 @@ router.get('/', (req, res) => {
     .catch(handleException)
 })
 
-router.post('/', (req, res) => {
-  const event = req.body
+router.post('/', async (req, res) => {
+  const {
+    title,
+    description,
+    startAt,
+    endAt,
+    participants,
+    image,
+    location,
+    color
+  } = req.body
 
   const newEvent = new Event()
 
@@ -81,13 +90,16 @@ router.post('/', (req, res) => {
 
   newEvent.title = event.title
   newEvent.description = event.description
+  newEvent.title = title
+  newEvent.description = description
   newEvent.author = mongoose.Types.ObjectId(req.user._id)
   newEvent.createdAt = new Date()
-  newEvent.startAt = new Date(event.startAt)
-  newEvent.endAt = new Date(event.endAt)
-  newEvent.participants = event.participants
-  newEvent.photo = event.photo
-  newEvent.location = event.location
+  newEvent.startAt = new Date(startAt)
+  newEvent.endAt = new Date(endAt)
+  newEvent.participants = participants
+  newEvent.image = imageURL
+  newEvent.location = location
+  newEvent.color = color
 
   newEvent
     .save()
