@@ -1,9 +1,9 @@
+import ResponseController from '../controller/ResponseController'
+
 // TODO: better to replace with a mongoose error checker middleware
-const handleException = (error, res) => {
+export const handleException = (error, res) => {
   if (res) {
     console.log(error)
-    return res.sendStatus(401)
+    return ResponseController.error(res, 400, 'generic error')
   } else console.log(error)
 }
-
-export { handleException }
